@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef vector_H_
+#define vector_H_
 
 #include "pair.h"
 #include <cstddef>
@@ -8,7 +8,7 @@
 template <typename T>
 class vector {
 private:
-    T* vector_;
+    T* v;
     size_t capacity_;
     size_t size_;
 
@@ -33,7 +33,7 @@ public:
 
 template <typename T>
 vector<T>::vector() : capacity_(1), size_(0) {
-	vector_ = new T[capacity_];
+	v = new T[capacity_];
 }
 
 template <typename T>
@@ -43,9 +43,9 @@ template <typename T>
 vector<T>::vector(size_t n, const T& value) {
     capacity_ = 2 * n;
     size_ = n;
-    vector_ = new T[capacity_];
+    v = new T[capacity_];
     for (size_t i = 0; i < size_; ++i) {
-        vector_[i] = value;
+        v[i] = value;
     }
 }
 
@@ -53,10 +53,10 @@ template <typename T>
 vector<T>::vector(const vector<T>& other) {
     size_ = other.size_;
     capacity_ = other.capacity_;
-    vector_ = new T[capacity_];
+    v = new T[capacity_];
 
     for (size_t i = 0; i < size_; ++i) {
-        vector_[i] = other.vector_[i];
+        v[i] = other.v[i];
     }
 }
 
@@ -65,13 +65,13 @@ vector<T>& vector<T>::operator=(const vector<T>& other) {
     if (this == &other) {
         return *this;
     }
-    delete[] vector_;
+    delete[] v;
 
     size_ = other.size_;
     capacity_ = other.capacity_;
-    vector_ = new T[capacity_];
+    v = new T[capacity_];
     for (size_t i = 0; i < size_; ++i) {
-        vector_[i] = other.vector_[i];
+        v[i] = other.v[i];
     }
 
     return *this;
@@ -79,7 +79,7 @@ vector<T>& vector<T>::operator=(const vector<T>& other) {
 
 template <typename T>
 vector<T>::~vector() {
-    delete[] vector_;
+    delete[] v;
 }
 
 template <typename T>
@@ -88,9 +88,9 @@ void vector<T>::reallocate(size_t new_capacity) {
         return;
     }
     T* new_v = new T[new_capacity];
-    std::copy(vector_, vector_ + size_, new_v);
-    delete[] vector_;
-    vector_ = new_v;
+    std::copy(v, v + size_, new_v);
+    delete[] v;
+    v = new_v;
     capacity_ = new_capacity;
 }
 
@@ -101,7 +101,7 @@ void vector<T>::push_back(const T& value) {
 
         reallocate(new_capacity);
     }
-    vector_[size_] = value;
+    v[size_] = value;
     size_++;
 }
 
@@ -110,23 +110,26 @@ T& vector<T>::operator[](size_t index) const{
     if (index >= size_) {
         throw std::out_of_range("Index out of bounds");
     }
-    return vector_[index];  // убираем const
+    return v[index];
 }
 
 template <typename T>
 void vector<T>::pop_back() {
     if (size_ > 0) {
         size_--;
-    }
+	}
+	else {
+		throw std::out_of_range("vector is empty.");
+	}
 }
 
 template <typename T>
 T& vector<T>::back() const {
     if (size_ > 0) {
-        return vector_[size_ - 1];
+        return v[size_ - 1];
     }
     throw std::out_of_range("vector is empty.");
 }
 
 
-#endif // VECTOR_H
+#endif // vector_H_

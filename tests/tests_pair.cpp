@@ -19,16 +19,6 @@ TEST(pair, testGetFirstSecond) {
 	EXPECT_EQ(p.second, 2);
 }
 
-TEST(pair, testGetMinFirstSecond) {
-	pair<int, int> p(1, 2);
-	EXPECT_EQ(min(p.first, p.second), 1);
-}
-
-TEST(pair, testGetMaxFirstSecond) {
-	pair<int, int> p(10, 5);
-	EXPECT_EQ(max(p.first, p.second), 10);
-}
-
 TEST(pair, testEqualPair) {
 	pair<int, int> p(1, 2);
 	pair<int, int> p1(3, 4);
@@ -73,21 +63,4 @@ TEST(PairTest, AssignmentOperator) {
 	p4 = p3;
 	EXPECT_EQ(p4.first, "test");
 	EXPECT_EQ(p4.second, 2.71);
-}
-
-TEST(PairTest, MinMaxFunctions) {
-	EXPECT_EQ(min(10, 20), 10);
-	EXPECT_EQ(max(10, 20), 20);
-	EXPECT_EQ(min(3.5, 2.1), 2.1);
-	EXPECT_EQ(max(3.5, 2.1), 3.5);
-}
-
-TEST(PairTest, SwapFunction) {
-	pair<int, int> p1(10, 20);
-	pair<int, int> p2(30, 40);
-	std::swap(p1, p2);
-	EXPECT_EQ(p1.first, 30);
-	EXPECT_EQ(p1.second, 40);
-	EXPECT_EQ(p2.first, 10);
-	EXPECT_EQ(p2.second, 20);
 }

@@ -1,8 +1,8 @@
 set(target ${MP2_TESTS})
 
 
-file(GLOB hdrs "*.h*")
-file(GLOB srcs "*.cpp")
+file(GLOB_RECURSE hdrs "*.h*")
+file(GLOB_RECURSE srcs "*.cpp")
 
 include_directories("${MP2_INCLUDE}" "../gtest")
 
